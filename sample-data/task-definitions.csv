@@ -1,0 +1,4 @@
+TaskName,IncludeFilterPattern,ExcludeFilterPattern,SourceLocationArn,DestinationLocationArn
+Custom_Filter_1,/include-only,,arn:aws:datasync:us-west-2:123456789012:location/loc-1234567890abc1234,arn:aws:datasync:us-west-2:123456789012:location/loc-0987654321abc0987
+Custom_Filter_2,,/exclude-only,arn:aws:datasync:us-west-2:123456789012:location/loc-1234567890abc1234,arn:aws:datasync:us-west-2:123456789012:location/loc-0987654321abc0987
+Custom_Filter_3,/both-include,/and-exclude,arn:aws:datasync:us-west-2:123456789012:location/loc-1234567890abc1234,arn:aws:datasync:us-west-2:123456789012:location/loc-0987654321abc0987

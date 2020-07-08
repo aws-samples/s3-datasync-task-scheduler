@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: AWS SAM application which creates and executes DataSync tasks when a task definition CSV file is created in S3.
+
+Resources:
+  CreateDataSyncTasks:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: Creates and executes DataSync tasks when a task definition CSV file is created in S3.
+      Runtime: python3.8
+      CodeUri: src
+      Handler: app.handler
+      MemorySize: 1024
+      Timeout: 900
+      Policies:
+        - AmazonS3ReadOnlyAccess
+        - AWSDataSyncFullAccess
+      Events:
+        S3CreateObject:
+          Type: S3
+          Properties:
+            Bucket:
+              Ref: TaskDefinitionFileBucket
+            Events: s3:ObjectCreated:Put
+      Environment:
+        Variables:
+          LOG_GROUP_ARN: 'arn:aws:logs:us-west-2:123456789012:log-group:Data_sync'
+
+  TaskDefinitionFileBucket:
+    Type: AWS::S3::Bucket
